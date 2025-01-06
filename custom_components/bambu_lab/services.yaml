@@ -9,14 +9,3 @@ send_command:
       example: "M104 S200"
       selector:
         text:
-send_mqtt_command:
-  name: Send MQTT Command
-  description: Send an arbitrary MQTT command to the 3D printer
-  fields:
-    command:
-      name: Command
-      description: The command to send to the printer via MQTT
-      required: true
-      example: "M104 S200"
-      selector:
-        text:
