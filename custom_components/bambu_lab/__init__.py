@@ -18,8 +18,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     async def send_command(call: ServiceCall):
         """Handle the service call."""
-        command = SEND_GCODE_TEMPLATE
-        command['print']['param'] = f"{call.data.get("command")}\n"
+        command = call.data.get("command")
         coordinator.client.publish(command)
 
     # Register the service with Home Assistant
@@ -27,18 +26,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         DOMAIN,
         "send_command",  # Service name
         send_command    # Handler function
-    )
-
-    async def send_mqtt_command(call: ServiceCall):
-        """Handle the service call."""
-        command = call.data.get("command")
-        coordinator.client.publish(command)
-
-    # Register the service with Home Assistant
-    hass.services.async_register(
-        DOMAIN,
-        "send_mqtt_command",  # Service name
-        send_mqtt_command    # Handler function
     )
 
     # Set up all platforms for this device/entry.
