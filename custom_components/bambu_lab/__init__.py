@@ -22,6 +22,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         command['print']['param'] = f"{call.data.get("command")}\n"
         coordinator.client.publish(command)
 
+    async def send_mqtt_command(call: ServiceCall):
+        """Handle the service call."""
+        command = f"{call.data.get("command")}"
+        coordinator.client.publish(command)
+
 
     # Register the service with Home Assistant
     hass.services.async_register(
